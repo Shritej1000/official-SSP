@@ -161,7 +161,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Mark loader as seen so index.html doesn't redirect back
+            // Mark loader as seen so home.html doesn't redirect back
             sessionStorage.setItem("hasSeenLoader", "true");
 
             const counterEl = document.getElementById("counter");
@@ -185,7 +185,7 @@
                         ease: "power4.inOut",
                         onComplete: () => {
                             // Redirect to home page
-                            window.location.href = "index.html";
+                            window.location.href = "home";
                         }
                     });
                 }
