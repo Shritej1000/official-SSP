@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <link rel="icon" type="image/png" href="images/site.png">
+    <meta name="description" content="Shritej Patil Portfolio Preloader">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-color: #FF4646; /* Matching your accent red */
+            --loader-color: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Outfit', sans-serif;
+            color: #FFFFFF;
+        }
+
+        .loader-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.8s ease-out;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .circle-loader {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 6px;
+            column-gap: 6px;
+            animation: circleRotate 10s linear infinite;
+        }
+
+        .circle-loader .circle {
+            background-color: var(--loader-color);
+            float: left;
+            animation: circleScaleDelay 1.3s infinite ease-in-out;
+            border-radius: 50%;
+        }
+
+        .circle-loader .circle1 { animation-delay: 0.2s; }
+        .circle-loader .circle2 { animation-delay: 0.3s; }
+        .circle-loader .circle3 { animation-delay: 0.4s; }
+        .circle-loader .circle4 { animation-delay: 0.1s; }
+        .circle-loader .circle5 { animation-delay: 0.2s; }
+        .circle-loader .circle6 { animation-delay: 0.3s; }
+        .circle-loader .circle7 { animation-delay: 0s; }
+        .circle-loader .circle8 { animation-delay: 0.1s; }
+        .circle-loader .circle9 { animation-delay: 0.2s; }
+
+        @keyframes circleScaleDelay {
+            0%, 70%, 100% { transform: scale3D(1, 1, 1); }
+            35% { transform: scale3D(0, 0, 1); }
+        }
+
+        @keyframes circleRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .circle-loader {
+                width: 60px;
+                height: 60px;
+                row-gap: 4px;
+                column-gap: 4px;
+            }
+        }
+
+        /* Bottom Left Counter */
+        .bottom-left-counter {
+            position: absolute;
+            bottom: 5vw;
+            left: 5vw;
+            display: flex;
+            align-items: flex-end;
+            line-height: 0.8;
+            z-index: 10;
+        }
+        .counter-num {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 300;
+        }
+        .counter-percent {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 300;
+            margin-bottom: clamp(0.3rem, 1vw, 0.8rem);
+            margin-left: 0.5rem;
+        }
+
+        /* Hide bars initially above screen */
+        .bars-container {
+            z-index: 20;
+        }
+        .bars-container .bar {
+            transform: translateY(-100%);
+            /* We make sure the transition bars are exactly the same red as background to create a seamless wipe */
+            background-color: #FF4646 !important; 
+        }
+
+    </style>
+</head>
+<body>
+    
+    <!-- Center Circle Loader -->
+    <div class="loader-wrapper">
+        <div id="loader-content" class="circle-loader">
+            <div class="circle circle1"></div>
+            <div class="circle circle2"></div>
+            <div class="circle circle3"></div>
+            <div class="circle circle4"></div>
+            <div class="circle circle5"></div>
+            <div class="circle circle6"></div>
+            <div class="circle circle7"></div>
+            <div class="circle circle8"></div>
+            <div class="circle circle9"></div>
+        </div>
+    </div>
+
+    <!-- Bottom Left Counter -->
+    <div class="bottom-left-counter">
+        <div class="counter-num" id="counter">0</div>
+        <div class="counter-percent">%</div>
+    </div>
+
+    <!-- The bars used for transitioning out to Home -->
+    <div class="bars-container" id="reveal-bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Mark loader as seen so index.html doesn't redirect back
+            sessionStorage.setItem("hasSeenLoader", "true");
+
+            const counterEl = document.getElementById("counter");
+            let counterObj = { val: 0 };
+            
+            // Total time = 4s (3.2s counting + 0.8s wipe animation)
+            gsap.to(counterObj, {
+                val: 100,
+                duration: 3.2,
+                ease: "power3.inOut",
+                onUpdate: () => {
+                    counterEl.innerText = Math.round(counterObj.val);
+                },
+                onComplete: () => {
+                    // Preloader done. Start the bar wipe transition
+                    const bars = document.querySelectorAll(".bars-container .bar");
+                    gsap.to(bars, {
+                        yPercent: 0, // Slide down to cover screen
+                        stagger: 0.1,
+                        duration: 0.8,
+                        ease: "power4.inOut",
+                        onComplete: () => {
+                            // Redirect to home page
+                            window.location.href = "index.html";
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

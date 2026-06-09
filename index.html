@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shritej - Web Designer </title>
+    <link rel="icon" type="image/png" href="images/site.png">
+    <meta name="description"
+        content="Shritej Patil is a freelance Web Designer and Developer creating high-end, premium digital experiences with stunning animations and modern layouts.">
+    <meta name="keywords"
+        content="Shritej Patil, Web Designer, Web Developer, Freelance, GSAP, React, Framer, Digital Design, UI/UX">
+    <meta name="author" content="Shritej Patil">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script>
+        if (!sessionStorage.getItem("hasSeenLoader")) {
+            sessionStorage.setItem("hasSeenLoader", "true");
+            window.location.replace("loader.html");
+        }
+    </script>
+</head>
+
+<body class="bg-black m-0 p-0 overflow-x-hidden text-[#E1E0CC]">
+
+    <!-- Reveal Animation Overlay -->
+    <div class="bars-container" id="reveal-bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- Header -->
+    <header
+        class="fixed top-0 left-0 w-full px-[5vw] py-4 z-40 flex justify-between items-center mix-blend-difference pointer-events-none">
+        <a href="index.html"
+            class="font-['Outfit'] text-2xl font-medium text-[#E1E0CC] tracking-wide pointer-events-auto">
+            Shritej Patil
+        </a>
+        <div class="w-14 h-14 flex flex-col justify-center items-center gap-[6px] rounded-full bg-transparent border border-[#E1E0CC]/20 cursor-pointer hover:bg-[#E1E0CC]/10 transition-colors group pointer-events-auto"
+            id="menu-toggle">
+            <span class="w-6 h-[1.5px] bg-[#E1E0CC] transition-transform duration-300 group-hover:scale-x-110"></span>
+            <span class="w-6 h-[1.5px] bg-[#E1E0CC] transition-transform duration-300 group-hover:scale-x-110"></span>
+        </div>
+    </header>
+
+    <!-- Smooth scroll wrapper -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- Hero Section -->
+            <section class="h-screen w-full p-2 md:p-4">
+                <div class="relative h-full w-full overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem]">
+                    <!-- Background Video -->
+                    <video autoplay loop muted playsinline class="absolute inset-0 h-full w-full object-cover"
+                        src="hero.mp4"></video>
+
+                    <!-- Noise overlay -->
+                    <div class="noise-overlay pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay">
+                    </div>
+
+                    <!-- Gradient overlay -->
+                    <div
+                        class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60">
+                    </div>
+
+
+
+                    <!-- Hero Info Box -->
+                    <div class="hero-info-box">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 7L17 17M17 17V7M17 17H7" stroke="#E1E0CC" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <h1 class="hero-info-text">
+                            Freelance<br>Designer & Developer
+                        </h1>
+                    </div>
+
+                    <!-- Audio Toggle -->
+                    <button id="audio-toggle"
+                        class="absolute bottom-[2vw] right-[5vw] z-30 flex items-center gap-3 text-[#E1E0CC] font-['Outfit'] text-sm md:text-base tracking-widest hover:opacity-70 transition-opacity">
+                        <span id="audio-text">Off</span>
+                        <div class="flex items-center justify-center w-6 h-6">
+                            <span id="audio-icon" class="audio-dot"></span>
+                        </div>
+                    </button>
+
+                    <audio id="bg-audio" loop>
+                        <source src="Web-portfolio.mp3" type="audio/mpeg">
+                    </audio>
+
+                    <!-- Hero Content (Marquee) -->
+                    <div class="marquee-container">
+                        <div class="marquee-content" id="hero-marquee">
+                            <span class="marquee-text">Shritej Patil —</span>
+                            <span class="marquee-text">Shritej Patil —</span>
+                            <span class="marquee-text">Shritej Patil —</span>
+                            <span class="marquee-text">Shritej Patil —</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="about-section">
+                <div class="about-content">
+                    <span class="about-label">about me</span>
+                    <h2 class="about-text">
+                        <span class="unit-logo">
+                            <span class="unit-text">UNIT</span>
+                            <span class="unit-line"></span>
+                        </span>
+                        Design and code are only tools of expression. What sets me and my work apart is people. I'm a
+                        creative thinker who crafts bespoke digital-first brand identities and experiences, tailor-made
+                        for you and your audience.<span class="about-symbols">노○○</span>
+                    </h2>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="services-section">
+                <!-- Section Label -->
+                <div class="services-label">OUR SERVICES</div>
+
+                <!-- Services Grid -->
+                <div class="services-grid">
+
+                    <div class="service-item" data-service="1">
+                        <sup class="service-num">01</sup>
+                        <div class="service-inner">
+                            <div class="service-img-reveal">
+                                <img src="images\ds1.png" alt="Social Media & Digital Marketing">
+                            </div>
+                            <div class="service-text-block">
+                                <h3 class="service-title">Social Media &<br>Digital<br>Marketing</h3>
+                                <div class="service-cta">
+                                    <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
+                                        MORE</span>
+                                    <span class="cta-arrow">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item" data-service="2">
+                        <sup class="service-num">02</sup>
+                        <div class="service-inner">
+                            <div class="service-img-reveal">
+                                <img src="images\Screenshot 2026-05-13 150326.png" alt="Interactive Installations & AI">
+                            </div>
+                            <div class="service-text-block">
+                                <h3 class="service-title">Interactive<br>Installations &<br>AI</h3>
+                                <div class="service-cta">
+                                    <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
+                                        MORE</span>
+                                    <span class="cta-arrow">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item" data-service="3">
+                        <sup class="service-num">03</sup>
+                        <div class="service-inner">
+                            <div class="service-img-reveal">
+                                <img src="images\manda-4.png" alt="AQuest Consulting">
+                            </div>
+                            <div class="service-text-block">
+                                <h3 class="service-title">AQuest<br>Consulting</h3>
+                                <div class="service-cta">
+                                    <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
+                                        MORE</span>
+                                    <span class="cta-arrow">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item" data-service="4">
+                        <sup class="service-num">04</sup>
+                        <div class="service-inner">
+                            <div class="service-img-reveal">
+                                <img src="images\Screenshot 2026-05-13 145508.png" alt="Original Films & 3D Production">
+                            </div>
+                            <div class="service-text-block">
+                                <h3 class="service-title">Original Films<br>& 3D<br>Production</h3>
+                                <div class="service-cta">
+                                    <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
+                                        MORE</span>
+                                    <span class="cta-arrow">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item" data-service="5">
+                        <sup class="service-num">05</sup>
+                        <div class="service-inner">
+                            <div class="service-img-reveal">
+                                <img src="images\Screenshot 2026-05-13 145548.png" alt="Immersive Digital Experience">
+                            </div>
+                            <div class="service-text-block">
+                                <h3 class="service-title">Immersive<br>Digital<br>Experience</h3>
+                                <div class="service-cta">
+                                    <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
+                                        MORE</span>
+                                    <span class="cta-arrow">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Selected Work Section -->
+            <section id="selected-work" class="selected-work-section">
+                <div class="work-section-header">
+                    <span class="work-label">FEATURED WORK</span>
+                </div>
+                <div class="work-cards-container">
+
+                    <div class="work-card">
+                        <div class="work-card-bg" style="background-image: url('images/Manda-hero.png');"></div>
+                        <div class="work-card-overlay"></div>
+                        <div class="work-card-content">
+                            <h2 class="work-card-title">MANDA</h2>
+                            <div class="work-card-footer">
+                                <div class="work-card-role">(CREATIVE DEV)</div>
+                                <div class="work-card-tech">
+                                    <div class="tech-col">
+                                        <span>NEXT.JS</span>
+                                        <span>WEBGL</span>
+                                        <span>GSAP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-card">
+                        <div class="work-card-bg" style="background-image: url('images/arc-hero.png');"></div>
+                        <div class="work-card-overlay"></div>
+                        <div class="work-card-content">
+                            <h2 class="work-card-title">ARC</h2>
+                            <div class="work-card-footer">
+                                <div class="work-card-role">(ART DIRECTION)</div>
+                                <div class="work-card-tech">
+                                    <div class="tech-col">
+                                        <span>REACT</span>
+                                        <span>FRAMER</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-card">
+                        <div class="work-card-bg" style="background-image: url('images/mars-hero.png');"></div>
+                        <div class="work-card-overlay"></div>
+                        <div class="work-card-content">
+                            <h2 class="work-card-title">MARS</h2>
+                            <div class="work-card-footer">
+                                <div class="work-card-role">(WEB EXPERIENCE)</div>
+                                <div class="work-card-tech">
+                                    <div class="tech-col">
+                                        <span>VUE</span>
+                                        <span>WEBGL</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-card">
+                        <div class="work-card-bg" style="background-image: url('images/martian-hero.png');"></div>
+                        <div class="work-card-overlay"></div>
+                        <div class="work-card-content">
+                            <h2 class="work-card-title">MARTIAN</h2>
+                            <div class="work-card-footer">
+                                <div class="work-card-role">(CREATIVE DEV)</div>
+                                <div class="work-card-tech">
+                                    <div class="tech-col">
+                                        <span>REACT</span>
+                                        <span>WEBGL</span>
+                                        <span>GSAP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <div class="cta-container">
+                    <h2 class="cta-heading">Innovate the Future with us.</h2>
+                    <a href="contact.html" class="cta-link">
+                        <span class="cta-link-text btn-hover-reveal" data-hover-text="Let's Talk">Let's Talk</span>
+                        <span class="cta-link-arrow">→</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Inspired Section -->
+            <section class="inspired-section">
+                <h2 class="inspired-text">
+                    Inspired by powerful ideas,<br>
+                    we explore the unknown to<br>
+                    innovate the present.
+                </h2>
+            </section>
+            <!-- Footer Section -->
+            <footer class="footer-section">
+                <video autoplay loop muted playsinline class="footer-video">
+                    <source src="footer.webm" type="video/webm">
+                </video>
+                <div class="footer-overlay"></div>
+
+                <div class="footer-center flex flex-col items-center gap-6 px-4 text-center z-[3] max-w-4xl mx-auto">
+                    <h2
+                        class="font-['Cormorant_Garamond'] text-[clamp(2.5rem,4.5vw,4rem)] text-[#E1E0CC] leading-tight">
+                        Partnering with visionaries to craft industry-leading digital experiences.
+                    </h2>
+
+                    <a href="mailto:shritejpatil2806@gmail.com"
+                        class="font-['Outfit'] text-lg md:text-xl text-[#E1E0CC]/80 hover:text-[#FF4646] transition-colors duration-300">
+                        shritejpatil2806@gmail.com
+                    </a>
+
+                    <a href="contact.html"
+                        class="mt-8 px-10 py-4 rounded-full border border-[#E1E0CC]/30 text-[#E1E0CC] font-['Outfit'] text-sm md:text-base tracking-widest uppercase hover:bg-[#FF4646] hover:border-[#FF4646] hover:text-white transition-all duration-300 backdrop-blur-sm btn-hover-reveal"
+                        data-hover-text="Let's Guild Together">
+                        Let's Guild Together
+                    </a>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="footer-col right">
+                        <div class="footer-socials">
+                            <a href="#" class="footer-link btn-hover-reveal" data-hover-text="X">X</a>
+                            <a href="#" class="footer-link btn-hover-reveal" data-hover-text="Instagram">Instagram</a>
+                            <a href="#" class="footer-link btn-hover-reveal" data-hover-text="LinkedIn">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Liquid Clip Path SVG -->
+    <svg class="absolute w-0 h-0 pointer-events-none">
+        <defs>
+            <clipPath id="liquidClip" clipPathUnits="objectBoundingBox">
+                <path id="liquid-path" d="M 0 0 L 1 0 L 1 0 Q 0.5 0 0 0 Z" />
+            </clipPath>
+        </defs>
+    </svg>
+
+    <!-- Fullscreen Menu Overlay -->
+    <div id="fullscreen-menu"
+        class="fixed inset-0 z-50 bg-black flex flex-col justify-center items-center pointer-events-none"
+        style="clip-path: url(#liquidClip);">
+        <video autoplay loop muted playsinline
+            class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none">
+            <source src="footer.webm" type="video/webm">
+        </video>
+
+        <div id="menu-content"
+            class="relative z-10 w-full h-full flex flex-col items-center justify-center opacity-0 pointer-events-none">
+            <!-- Close button -->
+            <nav class="absolute right-[5vw] top-0 mt-4 pointer-events-auto">
+                <div class="w-14 h-14 flex justify-center items-center rounded-full bg-transparent border border-[#E1E0CC]/20 cursor-pointer hover:bg-[#FF4646] hover:border-[#FF4646] transition-colors group"
+                    id="close-menu">
+                    <svg width="16" height="16" viewBox="0 0 14 14" fill="none"
+                        class="group-hover:rotate-90 transition-transform duration-300">
+                        <path d="M1 1L13 13M1 13L13 1" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                </div>
+            </nav>
+
+            <!-- Menu Items -->
+            <ul
+                class="text-center font-['Cormorant_Garamond'] text-[clamp(2.5rem,6vw,5rem)] text-[#E1E0CC] flex flex-col gap-2 w-full max-w-5xl px-4 z-10">
+                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="The Studio">The Studio</a></li>
+                <li><a href="contact.html" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Contact us">Contact us</a></li>
+                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Services">Services</a></li>
+                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Clients">Clients</a></li>
+                <li><a href="work.html" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Work">Work</a></li>
+            </ul>
+
+            <!-- Floating text -->
+            <div
+                class="absolute right-[5vw] top-1/2 -translate-y-1/2 text-xs md:text-sm font-['Outfit'] text-[#E1E0CC]">
+                Click to explore
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

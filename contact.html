@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Shritej Patil</title>
+    <link rel="icon" type="image/png" href="images/site.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-black m-0 p-0 overflow-x-hidden text-[#E1E0CC]">
+
+    <!-- Reveal Animation Overlay -->
+    <div class="bars-container" id="reveal-bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- Header -->
+    <header
+        class="fixed top-0 left-0 w-full px-[5vw] py-4 z-40 flex justify-between items-center mix-blend-difference pointer-events-none">
+        <a href="index.html"
+            class="font-['Outfit'] text-2xl font-medium text-[#E1E0CC] tracking-wide pointer-events-auto">
+            Shritej Patil
+        </a>
+        <div class="w-14 h-14 flex flex-col justify-center items-center gap-[6px] rounded-full bg-transparent border border-[#E1E0CC]/20 cursor-pointer hover:bg-[#E1E0CC]/10 transition-colors group pointer-events-auto"
+            id="menu-toggle">
+            <span class="w-6 h-[1.5px] bg-[#E1E0CC] transition-transform duration-300 group-hover:scale-x-110"></span>
+            <span class="w-6 h-[1.5px] bg-[#E1E0CC] transition-transform duration-300 group-hover:scale-x-110"></span>
+        </div>
+    </header>
+
+    <!-- Smooth scroll wrapper -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+
+
+            <!-- Contact Section -->
+            <section class="pt-40 pb-20 px-6 md:px-12 min-h-screen flex items-center relative">
+                <div class="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative">
+
+                    <!-- Left: Contact Form -->
+                    <div class="lg:col-span-8 reveal">
+                        <h1 class="text-6xl md:text-8xl font-medium tracking-tighter mb-20 leading-none">Let's
+                            create<br>something great.</h1>
+
+                        <form id="contact-form" onsubmit="event.preventDefault(); showSuccess();">
+                            <div class="form-group">
+                                <span class="form-number">01</span>
+                                <label for="name" class="form-label">What's your name?</label>
+                                <input type="text" id="name" class="form-input" placeholder="John Doe *" required>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="form-number">02</span>
+                                <label for="email" class="form-label">What's your email?</label>
+                                <input type="email" id="email" class="form-input" placeholder="john@doe.com *" required>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="form-number">03</span>
+                                <label for="organization" class="form-label">What's the name of your
+                                    organization?</label>
+                                <input type="text" id="organization" class="form-input" placeholder="John & Doe®">
+                            </div>
+
+                            <div class="form-group">
+                                <span class="form-number">04</span>
+                                <label for="services" class="form-label">What services are you looking for?</label>
+                                <input type="text" id="services" class="form-input"
+                                    placeholder="Web Design, Web Development ...">
+                            </div>
+
+                            <div class="form-group border-b border-white/10">
+                                <span class="form-number">05</span>
+                                <label for="message" class="form-label">Your message</label>
+                                <textarea id="message" class="form-input resize-none" rows="3"
+                                    placeholder="Hello Shritej, can you help me with ... *" required></textarea>
+                            </div>
+
+                            <button type="submit" class="send-btn magnetic-target">
+                                <span>Send it!</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Contact Info -->
+                    <div class="lg:col-span-4 mt-20 lg:mt-0 reveal" style="transition-delay: 0.2s;">
+                        <div class="sticky top-40">
+                            <div class="mb-12">
+                                <div class="w-20 h-20 rounded-full overflow-hidden mb-8">
+                                    <img src="Hero-1.png" alt="Shritej Patil" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <div class="mb-12">
+                                <span class="sidebar-label">Contact Details</span>
+                                <a href="mailto:shritejpatil2806@gmail.com"
+                                    class="sidebar-value">shritejpatil2806@gmail.com</a>
+                            </div>
+
+                            <div class="mb-12">
+                                <span class="sidebar-label">Socials</span>
+                                <a href="#" class="sidebar-value" style="margin-bottom: 0.5rem;">Awwwards</a>
+                                <a href="#" class="sidebar-value" style="margin-bottom: 0.5rem;">Instagram</a>
+                                <a href="#" class="sidebar-value" style="margin-bottom: 0.5rem;">Twitter</a>
+                                <a href="#" class="sidebar-value" style="margin-bottom: 0.5rem;">LinkedIn</a>
+                            </div>
+
+                            <div>
+                                <span class="sidebar-label">Location</span>
+                                <span class="sidebar-value mb-0" style="margin-bottom: 0;">Maharashtra, India<br>Local
+                                    Time: GMT+5:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </div>
+    </div>
+
+    <!-- Success Message Overlay -->
+    <div class="success-message" id="success-msg">
+        <h2 class="text-4xl font-medium tracking-tighter mb-4 text-white">Message Sent!</h2>
+        <p class="text-white/80">I will get back to you as soon as possible.</p>
+    </div>\n\n <!-- Liquid Clip Path SVG -->
+    <svg class="absolute w-0 h-0 pointer-events-none">
+        <defs>
+            <clipPath id="liquidClip" clipPathUnits="objectBoundingBox">
+                <path id="liquid-path" d="M 0 0 L 1 0 L 1 0 Q 0.5 0 0 0 Z" />
+            </clipPath>
+        </defs>
+    </svg>
+
+    <!-- Fullscreen Menu Overlay -->
+    <div id="fullscreen-menu"
+        class="fixed inset-0 z-50 bg-black flex flex-col justify-center items-center pointer-events-none"
+        style="clip-path: url(#liquidClip);">
+        <video autoplay loop muted playsinline
+            class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none">
+            <source src="footer.webm" type="video/webm">
+        </video>
+
+        <div id="menu-content"
+            class="relative z-10 w-full h-full flex flex-col items-center justify-center opacity-0 pointer-events-none">
+            <!-- Close button -->
+            <nav class="absolute right-[5vw] top-0 mt-4 pointer-events-auto">
+                <div class="w-14 h-14 flex justify-center items-center rounded-full bg-transparent border border-[#E1E0CC]/20 cursor-pointer hover:bg-[#FF4646] hover:border-[#FF4646] transition-colors group"
+                    id="close-menu">
+                    <svg width="16" height="16" viewBox="0 0 14 14" fill="none"
+                        class="group-hover:rotate-90 transition-transform duration-300">
+                        <path d="M1 1L13 13M1 13L13 1" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                </div>
+            </nav>
+
+            <!-- Menu Items -->
+            <ul
+                class="text-center font-['Cormorant_Garamond'] text-[clamp(2.5rem,6vw,5rem)] text-[#E1E0CC] flex flex-col gap-2 w-full max-w-5xl px-4 z-10">
+                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="The Studio">The Studio</a></li>
+                <li><a href="contact.html" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Contact us">Contact us</a></li>
+                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Services">Services</a></li>
+                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Clients">Clients</a></li>
+                <li><a href="work.html" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Work">Work</a></li>
+            </ul>
+
+            <!-- Floating text -->
+            <div
+                class="absolute right-[5vw] top-1/2 -translate-y-1/2 text-xs md:text-sm font-['Outfit'] text-[#E1E0CC]">
+                Click to explore
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function showSuccess() {
+            const msg = document.getElementById('success-msg');
+            msg.style.display = 'block';
+            gsap.to(msg, { opacity: 1, y: -20, duration: 0.5, ease: 'power3.out' });
+
+            // Disable button
+            const btn = document.querySelector('.send-btn');
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Sent';
+
+            // Clear form
+            document.getElementById('contact-form').reset();
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                gsap.to(msg, {
+                    opacity: 0, y: 0, duration: 0.5, ease: 'power3.in', onComplete: () => {
+                        msg.style.display = 'none';
+                        btn.disabled = false;
+                        btn.querySelector('span').textContent = 'Send it!';
+                    }
+                });
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
