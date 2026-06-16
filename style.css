@@ -681,15 +681,18 @@ html.lenis {
 .inspired-section {
   background-color: #000000;
   padding: 5vw;
+  display: flex;
+  justify-content: center;
 }
 
 .inspired-text {
-  font-family: 'Outfit', sans-serif;
-  font-size: clamp(3rem, 7.5vw, 8.5rem);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5.5vw, 6rem);
   font-weight: 300;
-  line-height: 1.05;
+  line-height: 1.1;
   color: var(--text-color);
   margin: 0;
+  text-align: center;
 }
 
 /* ========================================
@@ -966,7 +969,64 @@ html.lenis {
     height: 6px;
     background-color: currentColor;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transform-origin: bottom center;
+}
+
+/* ========================================
+   WORK PAGE GRID VIEW
+   ======================================== */
+.work-list.grid-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  padding-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .work-list.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.work-list.grid-view .work-list-item {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.work-list.grid-view .work-list-item > div {
+  width: 100% !important;
+  text-align: left !important;
+}
+
+.work-grid-img-container {
+  display: none;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.work-grid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.work-list.grid-view .work-grid-img-container {
+  display: block;
+}
+
+.work-list.grid-view .work-list-item:hover .work-grid-img {
+  transform: scale(1.05);
+}
+
+.work-list-item.hidden {
+  display: none !important;
 }
 .audio-dot.playing {
     width: 20px;

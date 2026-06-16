@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,8 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --bg-color: #FF4646; /* Matching your accent red */
+            --bg-color: #FF4646;
+            /* Matching your accent red */
             --loader-color: #FFFFFF;
         }
 
@@ -39,8 +41,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .circle-loader {
@@ -62,24 +71,63 @@
             border-radius: 50%;
         }
 
-        .circle-loader .circle1 { animation-delay: 0.2s; }
-        .circle-loader .circle2 { animation-delay: 0.3s; }
-        .circle-loader .circle3 { animation-delay: 0.4s; }
-        .circle-loader .circle4 { animation-delay: 0.1s; }
-        .circle-loader .circle5 { animation-delay: 0.2s; }
-        .circle-loader .circle6 { animation-delay: 0.3s; }
-        .circle-loader .circle7 { animation-delay: 0s; }
-        .circle-loader .circle8 { animation-delay: 0.1s; }
-        .circle-loader .circle9 { animation-delay: 0.2s; }
+        .circle-loader .circle1 {
+            animation-delay: 0.2s;
+        }
+
+        .circle-loader .circle2 {
+            animation-delay: 0.3s;
+        }
+
+        .circle-loader .circle3 {
+            animation-delay: 0.4s;
+        }
+
+        .circle-loader .circle4 {
+            animation-delay: 0.1s;
+        }
+
+        .circle-loader .circle5 {
+            animation-delay: 0.2s;
+        }
+
+        .circle-loader .circle6 {
+            animation-delay: 0.3s;
+        }
+
+        .circle-loader .circle7 {
+            animation-delay: 0s;
+        }
+
+        .circle-loader .circle8 {
+            animation-delay: 0.1s;
+        }
+
+        .circle-loader .circle9 {
+            animation-delay: 0.2s;
+        }
 
         @keyframes circleScaleDelay {
-            0%, 70%, 100% { transform: scale3D(1, 1, 1); }
-            35% { transform: scale3D(0, 0, 1); }
+
+            0%,
+            70%,
+            100% {
+                transform: scale3D(1, 1, 1);
+            }
+
+            35% {
+                transform: scale3D(0, 0, 1);
+            }
         }
 
         @keyframes circleRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive */
@@ -102,10 +150,12 @@
             line-height: 0.8;
             z-index: 10;
         }
+
         .counter-num {
             font-size: clamp(4rem, 10vw, 8rem);
             font-weight: 300;
         }
+
         .counter-percent {
             font-size: clamp(1.5rem, 4vw, 3rem);
             font-weight: 300;
@@ -117,16 +167,17 @@
         .bars-container {
             z-index: 20;
         }
+
         .bars-container .bar {
             transform: translateY(-100%);
             /* We make sure the transition bars are exactly the same red as background to create a seamless wipe */
-            background-color: #FF4646 !important; 
+            background-color: #FF4646 !important;
         }
-
     </style>
 </head>
+
 <body>
-    
+
     <!-- Center Circle Loader -->
     <div class="loader-wrapper">
         <div id="loader-content" class="circle-loader">
@@ -166,11 +217,11 @@
 
             const counterEl = document.getElementById("counter");
             let counterObj = { val: 0 };
-            
-            // Total time = 4s (3.2s counting + 0.8s wipe animation)
+
+            // Total time = 3.6s (2.8s counting + 0.8s wipe animation)
             gsap.to(counterObj, {
                 val: 100,
-                duration: 3.2,
+                duration: 2.8,
                 ease: "power3.inOut",
                 onUpdate: () => {
                     counterEl.innerText = Math.round(counterObj.val);
@@ -193,4 +244,5 @@
         });
     </script>
 </body>
+
 </html>

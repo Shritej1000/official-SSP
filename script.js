@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.querySelectorAll('.about-text, .inspired-text').forEach(el => {
+    document.querySelectorAll('.about-text').forEach(el => {
         wrapWordsForReveal(el);
         gsap.to(el.querySelectorAll('.gsap-word'), {
             opacity: 1,
@@ -131,6 +131,28 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // ========================================
+    // INSPIRED TEXT REVEAL
+    // ========================================
+    const inspiredText = document.querySelector('.inspired-text');
+    if (inspiredText) {
+        wrapWordsForReveal(inspiredText);
+        gsap.fromTo(inspiredText.querySelectorAll('.gsap-word'), 
+            { y: 50, opacity: 0 }, 
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.05,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: inspiredText,
+                    start: "top 90%"
+                }
+            }
+        );
+    }
 
     // ========================================
     // PROJECT PAGE ANIMATIONS
@@ -170,24 +192,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const yTo = gsap.quickTo(revealContainer, "y", { duration: 0.4, ease: "power3" });
 
         workItems.forEach(item => {
-            item.addEventListener('mouseenter', (e) => {
-                const imgUrl = item.getAttribute('data-image');
-                if (imgUrl) {
-                    revealImg.src = imgUrl;
+            item.addEventListener('mouseenter', () => {
+                if (document.querySelector('.work-list')?.classList.contains('grid-view')) return;
+                const imgSrc = item.getAttribute('data-image');
+                if (imgSrc) {
+                    revealImg.src = imgSrc;
                 }
                 
-                // Show container with scale and opacity
-                revealContainer.classList.remove('opacity-0', 'scale-50');
-                revealContainer.classList.add('opacity-100', 'scale-100');
+                gsap.to(revealContainer, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
             });
 
             item.addEventListener('mouseleave', () => {
-                // Hide container
-                revealContainer.classList.remove('opacity-100', 'scale-100');
-                revealContainer.classList.add('opacity-0', 'scale-50');
+                gsap.to(revealContainer, {
+                    opacity: 0,
+                    scale: 0.5,
+                    duration: 0.3,
+                    ease: "power2.in"
+                });
             });
 
             item.addEventListener('mousemove', (e) => {
+                if (document.querySelector('.work-list')?.classList.contains('grid-view')) return;
                 // Center the image container on cursor
                 // Container width is 400, height is 300 (defined in classes)
                 xTo(e.clientX - 200);
@@ -262,5 +292,141 @@ document.addEventListener("DOMContentLoaded", () => {
                 audioIcon.classList.remove('playing');
             }
         });
+    }
+
+    // ========================================
+    // SKIPER17 STICKY CARDS ANIMATION
+    // ========================================
+    const skiperCards = document.querySelectorAll('.skiper-card');
+    if (skiperCards.length > 0) {
+        const totalCards = skiperCards.length;
+
+        // Initialize positions
+        gsap.set(skiperCards[0], { y: "0%", scale: 1, rotation: 0 });
+        for (let i = 1; i < totalCards; i++) {
+            gsap.set(skiperCards[i], { y: "100%", scale: 1, rotation: 0 });
+        }
+
+        const scrollTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".sticky-cards",
+                start: "top top",
+                end: `+=${window.innerHeight * (totalCards - 1)}`,
+                pin: true,
+                scrub: 0.5,
+                pinSpacing: true,
+            },
+        });
+
+        for (let i = 0; i < totalCards - 1; i++) {
+            const currentCard = skiperCards[i];
+            const nextCard = skiperCards[i + 1];
+            const position = i;
+
+            scrollTimeline.to(
+                currentCard,
+                {
+                    scale: 0.7,
+                    rotation: 5,
+                    duration: 1,
+                    ease: "none",
+                },
+                position
+            );
+
+            scrollTimeline.to(
+                nextCard,
+                {
+                    y: "0%",
+                    duration: 1,
+                    ease: "none",
+                },
+                position
+            );
+        }
+    }
+
+
+    // ========================================
+    // WORK PAGE FILTERS & VIEW TOGGLE
+    // ========================================
+    const filterAll = document.getElementById('btn-filter-all');
+    const filterDesign = document.getElementById('btn-filter-design');
+    const filterDev = document.getElementById('btn-filter-dev');
+    
+    const viewList = document.getElementById('btn-view-list');
+    const viewGrid = document.getElementById('btn-view-grid');
+    const workList = document.querySelector('.work-list');
+    
+    if (filterAll && workList) {
+        const items = workList.querySelectorAll('.work-list-item');
+        
+        // Add images for grid view
+        items.forEach(item => {
+            const imgSrc = item.getAttribute('data-image');
+            if (imgSrc) {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'work-grid-img-container';
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.className = 'work-grid-img';
+                imgContainer.appendChild(img);
+                item.insertBefore(imgContainer, item.firstChild);
+            }
+        });
+
+        const filterBtns = [filterAll, filterDesign, filterDev];
+        
+        const setActiveFilter = (activeBtn) => {
+            filterBtns.forEach(btn => {
+                btn.className = "bg-transparent border border-[#E1E0CC]/30 text-[#E1E0CC] px-8 py-3 rounded-full text-sm font-medium hover:bg-[#E1E0CC]/10 transition-colors";
+            });
+            activeBtn.className = "bg-[#E1E0CC] text-black px-8 py-3 rounded-full text-sm font-medium hover:bg-white transition-colors";
+        };
+
+        filterAll.addEventListener('click', () => {
+            setActiveFilter(filterAll);
+            items.forEach(item => item.classList.remove('hidden'));
+        });
+
+        filterDesign.addEventListener('click', () => {
+            setActiveFilter(filterDesign);
+            items.forEach(item => {
+                const category = item.querySelector('.w-\\[30\\%\\]').textContent;
+                if (category.includes('Design')) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+
+        filterDev.addEventListener('click', () => {
+            setActiveFilter(filterDev);
+            items.forEach(item => {
+                const category = item.querySelector('.w-\\[30\\%\\]').textContent;
+                if (category.includes('Development')) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+
+        const setActiveView = (activeBtn, isGrid) => {
+            [viewList, viewGrid].forEach(btn => {
+                btn.className = "w-12 h-12 rounded-full bg-transparent border border-[#E1E0CC]/30 flex items-center justify-center hover:bg-[#E1E0CC]/10 transition-colors";
+            });
+            activeBtn.className = "w-12 h-12 rounded-full bg-[#111] border border-[#E1E0CC]/20 flex items-center justify-center hover:bg-[#222] transition-colors";
+            
+            if (isGrid) {
+                workList.classList.add('grid-view');
+            } else {
+                workList.classList.remove('grid-view');
+            }
+        };
+
+        viewList.addEventListener('click', () => setActiveView(viewList, false));
+        viewGrid.addEventListener('click', () => setActiveView(viewGrid, true));
     }
 });

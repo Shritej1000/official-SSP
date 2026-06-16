@@ -40,8 +40,7 @@
     <!-- Header -->
     <header
         class="fixed top-0 left-0 w-full px-[5vw] py-4 z-40 flex justify-between items-center mix-blend-difference pointer-events-none">
-        <a href="home"
-            class="font-['Outfit'] text-2xl font-medium text-[#E1E0CC] tracking-wide pointer-events-auto">
+        <a href="home" class="font-['Outfit'] text-2xl font-medium text-[#E1E0CC] tracking-wide pointer-events-auto">
             Shritej Patil
         </a>
         <div class="w-14 h-14 flex flex-col justify-center items-center gap-[6px] rounded-full bg-transparent border border-[#E1E0CC]/20 cursor-pointer hover:bg-[#E1E0CC]/10 transition-colors group pointer-events-auto"
@@ -140,7 +139,7 @@
                                 <img src="images\ds1.png" alt="Social Media & Digital Marketing">
                             </div>
                             <div class="service-text-block">
-                                <h3 class="service-title">Social Media &<br>Digital<br>Marketing</h3>
+                                <h3 class="service-title">Brand &<br>Website Experience<br>Design</h3>
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
@@ -157,7 +156,7 @@
                                 <img src="images\Screenshot 2026-05-13 150326.png" alt="Interactive Installations & AI">
                             </div>
                             <div class="service-text-block">
-                                <h3 class="service-title">Interactive<br>Installations &<br>AI</h3>
+                                <h3 class="service-title">Custom Website<br>Development</h3>
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
@@ -174,7 +173,7 @@
                                 <img src="images\manda-4.png" alt="AQuest Consulting">
                             </div>
                             <div class="service-text-block">
-                                <h3 class="service-title">AQuest<br>Consulting</h3>
+                                <h3 class="service-title">Ongoing Website Growth<br>& Maintenance</h3>
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
@@ -191,7 +190,7 @@
                                 <img src="images\Screenshot 2026-05-13 145508.png" alt="Original Films & 3D Production">
                             </div>
                             <div class="service-text-block">
-                                <h3 class="service-title">Original Films<br>& 3D<br>Production</h3>
+                                <h3 class="service-title">Shopify Store Design<br>& Development</h3>
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
@@ -208,7 +207,7 @@
                                 <img src="images\Screenshot 2026-05-13 145548.png" alt="Immersive Digital Experience">
                             </div>
                             <div class="service-text-block">
-                                <h3 class="service-title">Immersive<br>Digital<br>Experience</h3>
+                                <h3 class="service-title">Website Redesign<br>& Conversion Optimization</h3>
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
@@ -222,95 +221,91 @@
             </section>
 
             <!-- Selected Work Section -->
-            <section id="selected-work" class="selected-work-section">
+            <section id="selected-work" class="selected-work-section relative h-full w-full">
                 <div class="work-section-header">
                     <span class="work-label">FEATURED WORK</span>
                 </div>
-                <div class="work-cards-container">
+                <div
+                    class="sticky-cards relative flex h-screen w-full items-center justify-center overflow-hidden p-3 lg:p-8">
+                    <div
+                        class="relative h-[90%] w-full max-w-sm overflow-hidden rounded-[2rem] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-3xl 2xl:max-w-5xl">
 
-                    <div class="work-card">
-                        <div class="work-card-bg" style="background-image: url('images/Manda-hero.png');"></div>
-                        <div class="work-card-overlay"></div>
-                        <div class="work-card-content">
-                            <h2 class="work-card-title">MANDA</h2>
-                            <div class="work-card-footer">
-                                <div class="work-card-role">(CREATIVE DEV)</div>
-                                <div class="work-card-tech">
-                                    <div class="tech-col">
-                                        <span>NEXT.JS</span>
-                                        <span>WEBGL</span>
-                                        <span>GSAP</span>
+                        <!-- Card 1 -->
+                        <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
+                            <div class="work-card-bg"
+                                style="background-image: url('images/Screenshot 2026-05-13 150326.png');"></div>
+                            <div class="work-card-overlay"></div>
+                            <div class="work-card-content">
+                                <div class="work-card-footer">
+                                    <div class="work-card-role">(CREATIVE DEV)</div>
+                                    <div class="work-card-tech">
+                                        <div class="tech-col">
+                                            <span>NEXT.JS</span>
+                                            <span>WEBGL</span>
+                                            <span>GSAP</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="work-card">
-                        <div class="work-card-bg" style="background-image: url('images/arc-hero.png');"></div>
-                        <div class="work-card-overlay"></div>
-                        <div class="work-card-content">
-                            <h2 class="work-card-title">ARC</h2>
-                            <div class="work-card-footer">
-                                <div class="work-card-role">(ART DIRECTION)</div>
-                                <div class="work-card-tech">
-                                    <div class="tech-col">
-                                        <span>REACT</span>
-                                        <span>FRAMER</span>
+                        <!-- Card 2 -->
+                        <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
+                            <div class="work-card-bg" style="background-image: url('images/om.png');"></div>
+                            <div class="work-card-overlay"></div>
+                            <div class="work-card-content">
+                                <div class="work-card-footer">
+                                    <div class="work-card-role">(ART DIRECTION)</div>
+                                    <div class="work-card-tech">
+                                        <div class="tech-col">
+                                            <span>REACT</span>
+                                            <span>FRAMER</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="work-card">
-                        <div class="work-card-bg" style="background-image: url('images/mars-hero.png');"></div>
-                        <div class="work-card-overlay"></div>
-                        <div class="work-card-content">
-                            <h2 class="work-card-title">MARS</h2>
-                            <div class="work-card-footer">
-                                <div class="work-card-role">(WEB EXPERIENCE)</div>
-                                <div class="work-card-tech">
-                                    <div class="tech-col">
-                                        <span>VUE</span>
-                                        <span>WEBGL</span>
+                        <!-- Card 3 -->
+                        <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
+                            <div class="work-card-bg" style="background-image: url('images/mars-hero.png');"></div>
+                            <div class="work-card-overlay"></div>
+                            <div class="work-card-content">
+                                <div class="work-card-footer">
+                                    <div class="work-card-role">(WEB EXPERIENCE)</div>
+                                    <div class="work-card-tech">
+                                        <div class="tech-col">
+                                            <span>VUE</span>
+                                            <span>WEBGL</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="work-card">
-                        <div class="work-card-bg" style="background-image: url('images/martian-hero.png');"></div>
-                        <div class="work-card-overlay"></div>
-                        <div class="work-card-content">
-                            <h2 class="work-card-title">MARTIAN</h2>
-                            <div class="work-card-footer">
-                                <div class="work-card-role">(CREATIVE DEV)</div>
-                                <div class="work-card-tech">
-                                    <div class="tech-col">
-                                        <span>REACT</span>
-                                        <span>WEBGL</span>
-                                        <span>GSAP</span>
+                        <!-- Card 4 -->
+                        <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
+                            <div class="work-card-bg"
+                                style="background-image: url('images/Screenshot 2026-05-13 145548.png');"></div>
+                            <div class="work-card-overlay"></div>
+                            <div class="work-card-content">
+                                <div class="work-card-footer">
+                                    <div class="work-card-role">(CREATIVE DEV)</div>
+                                    <div class="work-card-tech">
+                                        <div class="tech-col">
+                                            <span>REACT</span>
+                                            <span>WEBGL</span>
+                                            <span>GSAP</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </section>
 
-            <!-- CTA Section -->
-            <section class="cta-section">
-                <div class="cta-container">
-                    <h2 class="cta-heading">Innovate the Future with us.</h2>
-                    <a href="contact" class="cta-link">
-                        <span class="cta-link-text btn-hover-reveal" data-hover-text="Let's Talk">Let's Talk</span>
-                        <span class="cta-link-arrow">→</span>
-                    </a>
-                </div>
-            </section>
 
             <!-- Inspired Section -->
             <section class="inspired-section">
