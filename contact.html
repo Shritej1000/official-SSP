@@ -53,37 +53,37 @@
                         <h1 class="text-6xl md:text-8xl font-medium tracking-tighter mb-20 leading-none">Let's
                             create<br>something great.</h1>
 
-                        <form id="contact-form" onsubmit="event.preventDefault(); showSuccess();">
+                        <form id="contact-form" onsubmit="submitForm(event)">
                             <div class="form-group">
                                 <span class="form-number">01</span>
                                 <label for="name" class="form-label">What's your name?</label>
-                                <input type="text" id="name" class="form-input" placeholder="John Doe *" required>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="John Doe *" required>
                             </div>
 
                             <div class="form-group">
                                 <span class="form-number">02</span>
                                 <label for="email" class="form-label">What's your email?</label>
-                                <input type="email" id="email" class="form-input" placeholder="john@doe.com *" required>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="john@doe.com *" required>
                             </div>
 
                             <div class="form-group">
                                 <span class="form-number">03</span>
                                 <label for="organization" class="form-label">What's the name of your
                                     organization?</label>
-                                <input type="text" id="organization" class="form-input" placeholder="John & Doe®">
+                                <input type="text" id="organization" name="organization" class="form-input" placeholder="John & Doe®">
                             </div>
 
                             <div class="form-group">
                                 <span class="form-number">04</span>
                                 <label for="services" class="form-label">What services are you looking for?</label>
-                                <input type="text" id="services" class="form-input"
+                                <input type="text" id="services" name="services" class="form-input"
                                     placeholder="Web Design, Web Development ...">
                             </div>
 
                             <div class="form-group border-b border-white/10">
                                 <span class="form-number">05</span>
                                 <label for="message" class="form-label">Your message</label>
-                                <textarea id="message" class="form-input resize-none" rows="3"
+                                <textarea id="message" name="message" class="form-input resize-none" rows="3"
                                     placeholder="Hello Shritej, can you help me with ... *" required></textarea>
                             </div>
 
@@ -135,7 +135,9 @@
     <div class="success-message" id="success-msg">
         <h2 class="text-4xl font-medium tracking-tighter mb-4 text-white">Message Sent!</h2>
         <p class="text-white/80">I will get back to you as soon as possible.</p>
-    </div>\n\n <!-- Liquid Clip Path SVG -->
+    </div>
+
+    <!-- Liquid Clip Path SVG -->
     <svg class="absolute w-0 h-0 pointer-events-none">
         <defs>
             <clipPath id="liquidClip" clipPathUnits="objectBoundingBox">
@@ -169,8 +171,7 @@
             <!-- Menu Items -->
             <ul
                 class="text-center font-['Cormorant_Garamond'] text-[clamp(2.5rem,6vw,5rem)] text-[#E1E0CC] flex flex-col gap-2 w-full max-w-5xl px-4 z-10">
-                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
-                        data-hover-text="The Studio">The Studio</a></li>
+                <li><a href="https://flowiee.com/" target="_blank" class="fs-menu-item btn-hover-reveal block cursor-pointer" data-hover-text="The Studio">The Studio</a></li>
                 <li><a href="contact" class="fs-menu-item btn-hover-reveal block cursor-pointer"
                         data-hover-text="Contact us">Contact us</a></li>
                 <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
@@ -192,6 +193,33 @@
 
     <script src="script.js"></script>
     <script>
+        function submitForm(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const btn = document.querySelector('.send-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>Sending...</span>';
+            btn.disabled = true;
+            
+            fetch("https://formsubmit.co/ajax/shritejpatil2806@gmail.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                showSuccess();
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("There was an error sending your message. Please try again later.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+
         function showSuccess() {
             const msg = document.getElementById('success-msg');
             msg.style.display = 'block';

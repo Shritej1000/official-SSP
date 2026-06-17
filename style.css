@@ -18,6 +18,14 @@ body {
   overflow-x: hidden;
 }
 
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
 ::selection {
   background-color: var(--accent-red);
   color: #fff;
@@ -401,7 +409,7 @@ html.lenis {
 /* Image Reveal - Hidden by default */
 .service-img-reveal {
   width: 0;
-  height: clamp(100px, 12vw, 180px);
+  height: auto;
   overflow: hidden;
   border-radius: 4px;
   flex-shrink: 0;
@@ -410,7 +418,7 @@ html.lenis {
 
 .service-img-reveal img {
   width: clamp(120px, 14vw, 200px);
-  height: 100%;
+  height: auto;
   object-fit: cover;
   display: block;
 }
@@ -423,7 +431,7 @@ html.lenis {
 /* Service Title */
 .service-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.6rem, 3vw, 3.2rem);
+  font-size: clamp(1.2rem, 2vw, 2.2rem);
   font-weight: 400;
   font-style: italic;
   line-height: 1.05;
@@ -810,7 +818,7 @@ html.lenis {
   }
 
   .service-img-reveal {
-    height: 100px;
+    height: auto;
   }
 
   .service-img-reveal img {
