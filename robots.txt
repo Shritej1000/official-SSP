@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /loader.html
+Disallow: /loader
+
+Sitemap: https://shritejpatil.in/sitemap.xml
