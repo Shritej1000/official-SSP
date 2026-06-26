@@ -4,20 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shritej - Web Designer </title>
-    <link rel="icon" type="image/png" href="images/site.png">
-    <meta property="og:title" content="Shritej - Web Designer">
-    <meta property="og:description" content="Shritej Patil is a Remote Freelance Web Designer & Developer delivering high-end, premium digital experiences for international clients worldwide.">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Shritej - Web Designer">
-    <meta name="twitter:description" content="Shritej Patil is a Remote Freelance Web Designer & Developer delivering high-end, premium digital experiences for international clients worldwide.">
-    <meta name="robots" content="index, follow">
+    <title>Shritej Patil - Freelance Web Designer &amp; Developer</title>
     <meta name="description"
-        content="Shritej Patil is a Remote Freelance Web Designer & Developer delivering high-end, premium digital experiences with stunning animations for international clients worldwide.">
+        content="Shritej Patil is a remote freelance web designer &amp; developer crafting high-end, animated, premium websites for international clients worldwide.">
     <meta name="keywords"
-        content="Shritej Patil, Remote Web Designer, Global Web Developer, Freelance, GSAP, React, Framer, International, Worldwide">
+        content="Shritej Patil, freelance web designer, web developer, remote web designer, GSAP, React, Framer, UI/UX, portfolio">
     <meta name="author" content="Shritej Patil">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://shritejpatil.in/home">
+    <link rel="icon" type="image/png" href="images/site.png">
+    <link rel="apple-touch-icon" href="images/site.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Shritej Patil">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://shritejpatil.in/home">
+    <meta property="og:title" content="Shritej Patil - Freelance Web Designer &amp; Developer">
+    <meta property="og:description"
+        content="Remote freelance web designer &amp; developer crafting high-end, animated, premium websites for clients worldwide.">
+    <meta property="og:image" content="https://shritejpatil.in/images/om.png">
+    <meta property="og:image:width" content="1901">
+    <meta property="og:image:height" content="871">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shritej Patil - Freelance Web Designer &amp; Developer">
+    <meta name="twitter:description"
+        content="Remote freelance web designer &amp; developer crafting high-end, animated, premium websites for clients worldwide.">
+    <meta name="twitter:image" content="https://shritejpatil.in/images/om.png">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://shritejpatil.in/#person",
+          "name": "Shritej Patil",
+          "url": "https://shritejpatil.in/home",
+          "image": "https://shritejpatil.in/images/site.png",
+          "jobTitle": "Freelance Web Designer & Developer",
+          "email": "shritejpatil2806@gmail.com",
+          "address": { "@type": "PostalAddress", "addressRegion": "Maharashtra", "addressCountry": "IN" },
+          "knowsAbout": ["Web Design", "Web Development", "UI/UX Design", "GSAP", "React", "Shopify", "Framer"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://shritejpatil.in/#website",
+          "name": "Shritej Patil",
+          "url": "https://shritejpatil.in/",
+          "publisher": { "@id": "https://shritejpatil.in/#person" }
+        }
+      ]
+    }
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -26,10 +69,15 @@
 
     <link rel="stylesheet" href="style.css">
     <script>
-        if (!sessionStorage.getItem("hasSeenLoader")) {
-            sessionStorage.setItem("hasSeenLoader", "true");
-            window.location.replace("loader");
-        }
+        // Show the first-visit preloader for humans only; let crawlers and
+        // link-preview bots index the real content directly (better for SEO).
+        (function () {
+            var isBot = /bot|crawl|spider|slurp|bing|google|duckduck|baidu|yandex|facebook|whatsapp|embed|preview|lighthouse|headless/i.test(navigator.userAgent);
+            if (!isBot && !sessionStorage.getItem("hasSeenLoader")) {
+                sessionStorage.setItem("hasSeenLoader", "true");
+                window.location.replace("loader");
+            }
+        })();
     </script>
 </head>
 
@@ -81,27 +129,16 @@
 
                     <!-- Hero Info Box -->
                     <div class="hero-info-box">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="hero-info-arrow" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 7L17 17M17 17V7M17 17H7" stroke="#E1E0CC" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
+                        <span class="hero-eyebrow">Design &middot; Development &middot; Motion</span>
                         <h1 class="hero-info-text">
-                            Freelance<br>Designer & Developer
+                            Designing &amp; building<br>websites &amp; animations<br>that stand out.
                         </h1>
+                        <p class="hero-info-sub">Helping ambitious brands make a lasting impression online.</p>
                     </div>
-
-                    <!-- Audio Toggle -->
-                    <button id="audio-toggle"
-                        class="absolute bottom-[2vw] right-[5vw] z-30 flex items-center gap-3 text-[#E1E0CC] font-['Outfit'] text-sm md:text-base tracking-widest hover:opacity-70 transition-opacity">
-                        <span id="audio-text">Off</span>
-                        <div class="flex items-center justify-center w-6 h-6">
-                            <span id="audio-icon" class="audio-dot"></span>
-                        </div>
-                    </button>
-
-                    <audio id="bg-audio" loop>
-                        <source src="Web-portfolio.mp3" type="audio/mpeg">
-                    </audio>
 
                     <!-- Hero Content (Marquee) -->
                     <div class="marquee-container">
@@ -126,7 +163,7 @@
                         </span>
                         Design and code are only tools of expression. What sets me and my work apart is people. I'm a
                         creative thinker who crafts bespoke digital-first brand identities and experiences, tailor-made
-                        for you and your audience.<span class="about-symbols">ë…¸â—‹â—‹</span>
+                        for you and your audience.
                     </h2>
                 </div>
             </section>
@@ -150,7 +187,7 @@
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
-                                    <span class="cta-arrow">â†’</span>
+                                    <span class="cta-arrow">&#8594;</span>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +204,7 @@
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
-                                    <span class="cta-arrow">â†’</span>
+                                    <span class="cta-arrow">&#8594;</span>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +221,7 @@
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
-                                    <span class="cta-arrow">â†’</span>
+                                    <span class="cta-arrow">&#8594;</span>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +238,7 @@
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
-                                    <span class="cta-arrow">â†’</span>
+                                    <span class="cta-arrow">&#8594;</span>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +255,7 @@
                                 <div class="service-cta">
                                     <span class="cta-text btn-hover-reveal" data-hover-text="DISCOVER MORE">DISCOVER
                                         MORE</span>
-                                    <span class="cta-arrow">â†’</span>
+                                    <span class="cta-arrow">&#8594;</span>
                                 </div>
                             </div>
                         </div>
@@ -235,11 +272,13 @@
                 <div
                     class="sticky-cards relative flex h-screen w-full items-center justify-center overflow-hidden p-3 lg:p-8">
                     <div
-                        class="relative h-[90%] w-full max-w-sm overflow-hidden rounded-[2rem] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-3xl 2xl:max-w-5xl">
+                        class="relative aspect-[4/5] max-h-[80vh] w-full max-w-sm overflow-hidden rounded-[2rem] sm:aspect-video sm:max-h-[88%] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-3xl 2xl:max-w-5xl">
 
                         <!-- Card 1 -->
                         <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
                             <div class="work-card-bg"
+                                style="background-image: url('images/Screenshot 2026-05-13 150326.png');"></div>
+                            <div class="work-card-img"
                                 style="background-image: url('images/Screenshot 2026-05-13 150326.png');"></div>
                             <div class="work-card-overlay"></div>
                             <div class="work-card-content">
@@ -259,6 +298,7 @@
                         <!-- Card 2 -->
                         <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
                             <div class="work-card-bg" style="background-image: url('images/om.png');"></div>
+                            <div class="work-card-img" style="background-image: url('images/om.png');"></div>
                             <div class="work-card-overlay"></div>
                             <div class="work-card-content">
                                 <div class="work-card-footer">
@@ -276,6 +316,7 @@
                         <!-- Card 3 -->
                         <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
                             <div class="work-card-bg" style="background-image: url('images/mars-hero.png');"></div>
+                            <div class="work-card-img" style="background-image: url('images/mars-hero.png');"></div>
                             <div class="work-card-overlay"></div>
                             <div class="work-card-content">
                                 <div class="work-card-footer">
@@ -293,6 +334,8 @@
                         <!-- Card 4 -->
                         <div class="skiper-card absolute h-full w-full overflow-hidden rounded-[2rem]">
                             <div class="work-card-bg"
+                                style="background-image: url('images/Screenshot 2026-05-13 145548.png');"></div>
+                            <div class="work-card-img"
                                 style="background-image: url('images/Screenshot 2026-05-13 145548.png');"></div>
                             <div class="work-card-overlay"></div>
                             <div class="work-card-content">
@@ -322,6 +365,36 @@
                     innovate the present.
                 </h2>
             </section>
+
+            <!-- Project Gallery Marquee -->
+            <section class="gallery-section">
+                <div class="gallery-head">
+                    <span class="gallery-label">Selected Visuals</span>
+                    <span class="gallery-meta">A glimpse of recent work</span>
+                </div>
+
+                <div class="gallery-row" data-dir="left">
+                    <div class="gallery-track" data-speed="62">
+                        <a href="work" class="gallery-item" aria-label="Automobili Ardent"><img src="images/Screenshot 2026-05-13 150326.png" alt="Automobili Ardent" loading="lazy"><span class="gallery-cap">Automobili Ardent</span></a>
+                        <a href="work" class="gallery-item" aria-label="Om Shah"><img src="images/om.png" alt="Om Shah" loading="lazy"><span class="gallery-cap">Om Shah</span></a>
+                        <a href="work" class="gallery-item" aria-label="Mars"><img src="images/mars-hero.png" alt="Mars" loading="lazy"><span class="gallery-cap">Mars</span></a>
+                        <a href="work" class="gallery-item" aria-label="Manda"><img src="images/manda-1.png" alt="Manda" loading="lazy"><span class="gallery-cap">Manda</span></a>
+                        <a href="work" class="gallery-item" aria-label="The Arc"><img src="images/arc-hero.png" alt="The Arc" loading="lazy"><span class="gallery-cap">The Arc</span></a>
+                        <a href="work" class="gallery-item" aria-label="Flowiee"><img src="images/Screenshot 2026-05-13 145548.png" alt="Flowiee" loading="lazy"><span class="gallery-cap">Flowiee</span></a>
+                    </div>
+                </div>
+
+                <div class="gallery-row" data-dir="right">
+                    <div class="gallery-track" data-speed="56">
+                        <a href="work" class="gallery-item" aria-label="Samani &amp; Partners"><img src="images/Screenshot 2026-05-13 145508.png" alt="Samani & Partners" loading="lazy"><span class="gallery-cap">Samani &amp; Partners</span></a>
+                        <a href="work" class="gallery-item" aria-label="Dream Studio"><img src="images/DS.png" alt="Dream Studio" loading="lazy"><span class="gallery-cap">Dream Studio</span></a>
+                        <a href="work" class="gallery-item" aria-label="Martian Shop"><img src="images/martian-hero.png" alt="Martian Shop" loading="lazy"><span class="gallery-cap">Martian Shop</span></a>
+                        <a href="work" class="gallery-item" aria-label="Dream Studio"><img src="images/ds-hero.png" alt="Dream Studio" loading="lazy"><span class="gallery-cap">Dream Studio</span></a>
+                        <a href="work" class="gallery-item" aria-label="Manda Living"><img src="images/manda-3.png" alt="Manda Living" loading="lazy"><span class="gallery-cap">Manda Living</span></a>
+                        <a href="work" class="gallery-item" aria-label="The Arc"><img src="images/arc2.png" alt="The Arc" loading="lazy"><span class="gallery-cap">The Arc</span></a>
+                    </div>
+                </div>
+            </section>
             <!-- Footer Section -->
             <footer class="footer-section">
                 <video autoplay loop muted playsinline class="footer-video">
@@ -329,31 +402,44 @@
                 </video>
                 <div class="footer-overlay"></div>
 
-                <div class="footer-center flex flex-col items-center gap-6 px-4 text-center z-[3] max-w-4xl mx-auto">
-                    <h2
-                        class="font-['Cormorant_Garamond'] text-[clamp(2.5rem,4.5vw,4rem)] text-[#E1E0CC] leading-tight">
+                <!-- Center: CTA -->
+                <div class="footer-center">
+                    <span class="footer-eyebrow">Have a project in mind?</span>
+                    <h2 class="footer-headline">
                         Partnering with visionaries to craft industry-leading digital experiences.
                     </h2>
-
-                    <a href="mailto:shritejpatil2806@gmail.com"
-                        class="font-['Outfit'] text-lg md:text-xl text-[#E1E0CC]/80 hover:text-[#FF4646] transition-colors duration-300">
-                        shritejpatil2806@gmail.com
-                    </a>
-
-                    <a href="contact"
-                        class="mt-8 px-10 py-4 rounded-full border border-[#E1E0CC]/30 text-[#E1E0CC] font-['Outfit'] text-sm md:text-base tracking-widest uppercase hover:bg-[#FF4646] hover:border-[#FF4646] hover:text-white transition-all duration-300 backdrop-blur-sm btn-hover-reveal"
-                        data-hover-text="Let's Guild Together">
-                        Let's Guild Together
-                    </a>
+                    <a href="mailto:shritejpatil2806@gmail.com" class="footer-email-link">shritejpatil2806@gmail.com</a>
+                    <a href="contact" class="footer-cta btn-hover-reveal" data-hover-text="Let's Guild Together">Let's Guild Together</a>
                 </div>
 
+                <!-- Bottom bar -->
                 <div class="footer-bottom">
-                    <div class="footer-col right">
-                        <div class="footer-socials">
-                            <a href="#" class="footer-link btn-hover-reveal" data-hover-text="X">X</a>
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <a href="home" class="footer-wordmark">Shritej Patil</a>
+                            <span class="footer-status"><span class="footer-status-dot"></span>Available for new projects</span>
+                        </div>
+                        <nav class="footer-nav">
+                            <span class="footer-nav-title">Menu</span>
+                            <a href="home" class="footer-link btn-hover-reveal" data-hover-text="Home">Home</a>
+                            <a href="work" class="footer-link btn-hover-reveal" data-hover-text="Work">Work</a>
+                            <a href="contact" class="footer-link btn-hover-reveal" data-hover-text="Contact">Contact</a>
+                        </nav>
+                        <nav class="footer-nav">
+                            <span class="footer-nav-title">Socials</span>
                             <a href="#" class="footer-link btn-hover-reveal" data-hover-text="Instagram">Instagram</a>
                             <a href="#" class="footer-link btn-hover-reveal" data-hover-text="LinkedIn">LinkedIn</a>
+                            <a href="#" class="footer-link btn-hover-reveal" data-hover-text="X / Twitter">X / Twitter</a>
+                        </nav>
+                        <div class="footer-nav">
+                            <span class="footer-nav-title">Based in</span>
+                            <span class="footer-meta">Maharashtra, India</span>
+                            <span class="footer-meta">GMT +5:30</span>
                         </div>
+                    </div>
+                    <div class="footer-baseline">
+                        <span class="footer-copy">&copy; <span class="footer-year">2026</span> Shritej Patil. All rights reserved.</span>
+                        <button type="button" id="footer-back-top" class="footer-backtop btn-hover-reveal" data-hover-text="Back to top">Back to top</button>
                     </div>
                 </div>
             </footer>
@@ -399,21 +485,15 @@
                 class="text-center font-['Cormorant_Garamond'] text-[clamp(2.5rem,6vw,5rem)] text-[#E1E0CC] flex flex-col gap-2 w-full max-w-5xl px-4 z-10">
                 <li><a href="https://flowiee.com/" target="_blank" class="fs-menu-item btn-hover-reveal block cursor-pointer"
                         data-hover-text="The Studio">The Studio</a></li>
+                <li><a href="home" class="fs-menu-item btn-hover-reveal block cursor-pointer"
+                        data-hover-text="Home">Home</a></li>
                 <li><a href="contact" class="fs-menu-item btn-hover-reveal block cursor-pointer"
                         data-hover-text="Contact us">Contact us</a></li>
                 <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
                         data-hover-text="Services">Services</a></li>
-                <li><a href="#" class="fs-menu-item btn-hover-reveal block cursor-pointer"
-                        data-hover-text="Clients">Clients</a></li>
                 <li><a href="work" class="fs-menu-item btn-hover-reveal block cursor-pointer"
                         data-hover-text="Work">Work</a></li>
             </ul>
-
-            <!-- Floating text -->
-            <div
-                class="absolute right-[5vw] top-1/2 -translate-y-1/2 text-xs md:text-sm font-['Outfit'] text-[#E1E0CC]">
-                Click to explore
-            </div>
 
         </div>
     </div>

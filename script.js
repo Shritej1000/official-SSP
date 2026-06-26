@@ -40,6 +40,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ========================================
+    // HERO INTRO REVEAL
+    // ========================================
+    const heroInfoBox = document.querySelector('.hero-info-box');
+    if (heroInfoBox) {
+        const heroBits = heroInfoBox.querySelectorAll('.hero-info-arrow, .hero-eyebrow, .hero-info-text, .hero-info-sub');
+        gsap.from(heroBits, {
+            y: 28,
+            opacity: 0,
+            duration: 1.1,
+            ease: "power3.out",
+            stagger: 0.12,
+            delay: 0.7
+        });
+    }
+
+    // ========================================
     // PREMIUM LETTER-REVEAL HOVER
     // ========================================
     function splitTextIntoChars(text) {
@@ -83,6 +99,31 @@ document.addEventListener("DOMContentLoaded", () => {
             ease: "none"
         });
     }
+
+    // ========================================
+    // PROJECT GALLERY MARQUEE (2 rows, infinite)
+    // ========================================
+    document.querySelectorAll('.gallery-track').forEach((track) => {
+        // Duplicate the items so the -50% loop is perfectly seamless.
+        Array.from(track.children).forEach((item) => {
+            track.appendChild(item.cloneNode(true));
+        });
+
+        const row = track.closest('.gallery-row');
+        const goRight = row && row.dataset.dir === 'right';
+        const speed = parseFloat(track.dataset.speed) || 55;
+
+        const tween = goRight
+            ? gsap.fromTo(track, { xPercent: -50 }, { xPercent: 0, duration: speed, ease: 'none', repeat: -1 })
+            : gsap.to(track, { xPercent: -50, duration: speed, ease: 'none', repeat: -1 });
+
+        // Glide to a stop on hover, resume on leave.
+        if (row) {
+            row.addEventListener('mouseenter', () => gsap.to(tween, { timeScale: 0, duration: 0.5, overwrite: true }));
+            row.addEventListener('mouseleave', () => gsap.to(tween, { timeScale: 1, duration: 0.5, overwrite: true }));
+        }
+    });
+
     // ========================================
     // SCRUBBED TEXT REVEAL ANIMATION
     // ========================================
@@ -139,16 +180,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (inspiredText) {
         wrapWordsForReveal(inspiredText);
         gsap.fromTo(inspiredText.querySelectorAll('.gsap-word'), 
-            { y: 50, opacity: 0 }, 
+            { yPercent: 130, opacity: 0, rotationZ: 8, transformOrigin: "50% 100%", filter: "blur(12px)" },
             {
-                y: 0,
+                yPercent: 0,
                 opacity: 1,
-                duration: 1,
-                stagger: 0.05,
-                ease: "power3.out",
+                rotationZ: 0,
+                filter: "blur(0px)",
+                duration: 1.3,
+                ease: "expo.out",
+                stagger: { each: 0.06, from: "center" },
                 scrollTrigger: {
                     trigger: inspiredText,
-                    start: "top 90%"
+                    start: "top 80%",
+                    once: true
                 }
             }
         );
@@ -273,25 +317,109 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ========================================
-    // AUDIO TOGGLE LOGIC
+    // PERSISTENT BACKGROUND AUDIO (all pages)
     // ========================================
-    const audioToggle = document.getElementById('audio-toggle');
-    const bgAudio = document.getElementById('bg-audio');
-    const audioText = document.getElementById('audio-text');
-    const audioIcon = document.getElementById('audio-icon');
+    try {
+        const AUDIO_SRC = 'Web-portfolio.mp3';
 
-    if (audioToggle && bgAudio) {
-        audioToggle.addEventListener('click', () => {
-            if (bgAudio.paused) {
-                bgAudio.play();
-                audioText.innerText = 'On';
-                audioIcon.classList.add('playing');
+        // Reuse an existing audio element or create one for this page.
+        let audio = document.getElementById('bg-audio');
+        if (!audio) {
+            audio = document.createElement('audio');
+            audio.id = 'bg-audio';
+            const src = document.createElement('source');
+            src.src = AUDIO_SRC;
+            src.type = 'audio/mpeg';
+            audio.appendChild(src);
+            document.body.appendChild(audio);
+        }
+        audio.loop = true;
+        audio.preload = 'auto';
+
+        // Resume the track from where it was on the previous page.
+        const savedTime = parseFloat(sessionStorage.getItem('audioTime') || '0');
+        const applyTime = () => {
+            if (savedTime > 0 && isFinite(savedTime)) {
+                try { audio.currentTime = savedTime; } catch (e) {}
+            }
+        };
+        if (audio.readyState >= 1) applyTime();
+        else audio.addEventListener('loadedmetadata', applyTime, { once: true });
+
+        let lastSave = 0;
+        const persist = () => {
+            try { sessionStorage.setItem('audioTime', String(audio.currentTime || 0)); } catch (e) {}
+        };
+        audio.addEventListener('timeupdate', () => {
+            const t = Date.now();
+            if (t - lastSave > 1000) { lastSave = t; persist(); }
+        });
+        window.addEventListener('pagehide', persist);
+        window.addEventListener('beforeunload', persist);
+
+        // Floating sound toggle (injected on every page).
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'site-audio-toggle';
+        toggle.setAttribute('aria-label', 'Toggle background sound');
+        toggle.innerHTML =
+            '<span class="site-audio-bars"><i></i><i></i><i></i><i></i></span>' +
+            '<span class="site-audio-label">Sound off</span>';
+        document.body.appendChild(toggle);
+        const labelEl = toggle.querySelector('.site-audio-label');
+
+        const reflect = () => {
+            const playing = !audio.paused && !audio.ended;
+            toggle.classList.toggle('is-playing', playing);
+            if (labelEl) labelEl.textContent = playing ? 'Sound on' : 'Sound off';
+            toggle.setAttribute('aria-pressed', playing ? 'true' : 'false');
+        };
+
+        // If autoplay is blocked, start on the first user gesture instead.
+        let armed = false;
+        const armGesture = () => {
+            if (armed) return;
+            armed = true;
+            const go = () => {
+                armed = false;
+                ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach((ev) =>
+                    window.removeEventListener(ev, go));
+                audio.play().then(reflect).catch(() => {});
+            };
+            ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach((ev) =>
+                window.addEventListener(ev, go, { once: true, passive: true }));
+        };
+
+        const startPlayback = () => {
+            const p = audio.play();
+            if (p && p.then) p.then(reflect).catch(armGesture);
+            else reflect();
+        };
+
+        toggle.addEventListener('click', () => {
+            if (audio.paused) {
+                try { localStorage.setItem('audioPref', 'on'); } catch (e) {}
+                startPlayback();
             } else {
-                bgAudio.pause();
-                audioText.innerText = 'Off';
-                audioIcon.classList.remove('playing');
+                audio.pause();
+                try { localStorage.setItem('audioPref', 'off'); } catch (e) {}
+                reflect();
             }
         });
+
+        // Honour the choice made on the intro sound gate.
+        let pref = null;
+        try { pref = localStorage.getItem('audioPref'); } catch (e) {}
+        if (pref === 'on') {
+            toggle.classList.add('is-playing');
+            if (labelEl) labelEl.textContent = 'Sound on';
+            startPlayback();
+        } else {
+            reflect();
+        }
+    } catch (e) {
+        // Audio is non-essential — never let it break the page.
+        console.warn('Background audio init skipped:', e);
     }
 
     // ========================================
@@ -300,6 +428,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const skiperCards = document.querySelectorAll('.skiper-card');
     if (skiperCards.length > 0) {
         const totalCards = skiperCards.length;
+
+        // Clicking any featured-work card opens the Work page.
+        skiperCards.forEach((card) => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+                window.location.href = 'work';
+            });
+        });
 
         // Initialize positions
         gsap.set(skiperCards[0], { y: "0%", scale: 1, rotation: 0 });
@@ -315,6 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 pin: true,
                 scrub: 0.5,
                 pinSpacing: true,
+                refreshPriority: 1,
             },
         });
 
@@ -346,6 +483,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+
+    // ========================================
+    // FOOTER INTERACTIONS
+    // ========================================
+    const footerYear = document.querySelector('.footer-year');
+    if (footerYear) {
+        footerYear.textContent = new Date().getFullYear();
+    }
+
+    const backToTop = document.getElementById('footer-back-top');
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            if (typeof lenis !== 'undefined' && lenis.scrollTo) {
+                lenis.scrollTo(0, { duration: 1.4 });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+
+    // Recalculate ScrollTrigger once webfonts load (font swap shifts layout).
+    if (document.fonts && document.fonts.ready && typeof ScrollTrigger !== 'undefined') {
+        document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
 
     // ========================================
     // WORK PAGE FILTERS & VIEW TOGGLE

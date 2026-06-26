@@ -35,7 +35,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-display, 'Outfit', sans-serif);
             color: #FFFFFF;
         }
 
@@ -180,6 +180,133 @@
             /* We make sure the transition bars are exactly the same red as background to create a seamless wipe */
             background-color: #FF4646 !important;
         }
+
+        /* ========================================
+           ENTER / SOUND GATE
+           ======================================== */
+        .enter-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .enter-gate__video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .enter-gate__scrim {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: rgba(8, 8, 8, 0.55);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+        }
+
+        .enter-gate__inner {
+            position: relative;
+            z-index: 3;
+            max-width: 42rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            color: #E1E0CC;
+        }
+
+        .enter-gate__eyebrow {
+            font-family: var(--font-display, 'Outfit', sans-serif);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: rgba(225, 224, 204, 0.6);
+        }
+
+        .enter-gate__title {
+            font-family: var(--font-serif, 'Cormorant Garamond', serif);
+            font-weight: 400;
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            line-height: 1.05;
+            margin: 0;
+        }
+
+        .enter-gate__sub {
+            font-family: var(--font-display, 'Outfit', sans-serif);
+            font-weight: 300;
+            font-size: clamp(0.85rem, 1.4vw, 1rem);
+            line-height: 1.6;
+            color: rgba(225, 224, 204, 0.7);
+            max-width: 34rem;
+        }
+
+        .enter-gate__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .enter-btn {
+            font-family: var(--font-display, 'Outfit', sans-serif);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 1rem 2.25rem;
+            border-radius: 999px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .enter-btn--primary {
+            background: #E1E0CC;
+            color: #0a0a0a;
+        }
+
+        .enter-btn--primary:hover {
+            background: #FF4646;
+            color: #ffffff;
+        }
+
+        .enter-btn--ghost {
+            background: transparent;
+            color: #E1E0CC;
+            border-color: rgba(225, 224, 204, 0.35);
+        }
+
+        .enter-btn--ghost:hover {
+            border-color: #FF4646;
+            background: rgba(255, 70, 70, 0.12);
+            color: #ffffff;
+        }
+
+        .enter-gate__hint {
+            margin-top: 0.4rem;
+            font-family: var(--font-display, 'Outfit', sans-serif);
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(225, 224, 204, 0.4);
+        }
     </style>
 </head>
 
@@ -206,6 +333,24 @@
         <div class="counter-percent">%</div>
     </div>
 
+    <!-- Enter / Sound Gate -->
+    <div class="enter-gate" id="enter-gate">
+        <video class="enter-gate__video" autoplay loop muted playsinline>
+            <source src="footer.webm" type="video/webm">
+        </video>
+        <div class="enter-gate__scrim"></div>
+        <div class="enter-gate__inner">
+            <span class="enter-gate__eyebrow">Shritej Patil &mdash; Portfolio</span>
+            <h1 class="enter-gate__title">Best experienced<br>with sound on.</h1>
+            <p class="enter-gate__sub">This portfolio is accompanied by an ambient soundtrack. Choose how you'd like to step inside.</p>
+            <div class="enter-gate__actions">
+                <button type="button" class="enter-btn enter-btn--primary" id="enter-with-sound">Enter with sound</button>
+                <button type="button" class="enter-btn enter-btn--ghost" id="enter-without-sound">Enter without sound</button>
+            </div>
+            <span class="enter-gate__hint">You can toggle sound anytime</span>
+        </div>
+    </div>
+
     <!-- The bars used for transitioning out to Home -->
     <div class="bars-container" id="reveal-bars">
         <div class="bar"></div>
@@ -223,9 +368,10 @@
             sessionStorage.setItem("hasSeenLoader", "true");
 
             const counterEl = document.getElementById("counter");
+            const gate = document.getElementById("enter-gate");
             let counterObj = { val: 0 };
 
-            // Total time = 3.6s (2.8s counting + 0.8s wipe animation)
+            // Count up, then reveal the sound gate (the user chooses how to enter).
             gsap.to(counterObj, {
                 val: 100,
                 duration: 2.8,
@@ -234,20 +380,44 @@
                     counterEl.innerText = Math.round(counterObj.val);
                 },
                 onComplete: () => {
-                    // Preloader done. Start the bar wipe transition
-                    const bars = document.querySelectorAll(".bars-container .bar");
-                    gsap.to(bars, {
-                        yPercent: 0, // Slide down to cover screen
-                        stagger: 0.1,
-                        duration: 0.8,
-                        ease: "power4.inOut",
-                        onComplete: () => {
-                            // Redirect to home page
-                            window.location.href = "home";
-                        }
-                    });
+                    gsap.set(".enter-gate__inner > *", { opacity: 0, y: 26 });
+                    gsap.timeline()
+                        .to([".loader-wrapper", ".bottom-left-counter"], {
+                            opacity: 0,
+                            duration: 0.5,
+                            ease: "power2.out"
+                        })
+                        .set(gate, { visibility: "visible" })
+                        .to(gate, { opacity: 1, duration: 0.6, ease: "power2.out" })
+                        .to(".enter-gate__inner > *", {
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.9,
+                            stagger: 0.08,
+                            ease: "power3.out"
+                        }, "-=0.2");
                 }
             });
+
+            // Save the music preference, then wipe out to the home page.
+            function enterSite(withSound) {
+                try { localStorage.setItem("audioPref", withSound ? "on" : "off"); } catch (e) {}
+                try { sessionStorage.setItem("audioTime", "0"); } catch (e) {}
+
+                const bars = document.querySelectorAll(".bars-container .bar");
+                gsap.to(bars, {
+                    yPercent: 0, // Slide down to cover the screen
+                    stagger: 0.08,
+                    duration: 0.7,
+                    ease: "power4.inOut",
+                    onComplete: () => {
+                        window.location.href = "home";
+                    }
+                });
+            }
+
+            document.getElementById("enter-with-sound").addEventListener("click", () => enterSite(true));
+            document.getElementById("enter-without-sound").addEventListener("click", () => enterSite(false));
         });
     </script>
 </body>
